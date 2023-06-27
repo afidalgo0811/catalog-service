@@ -23,8 +23,8 @@ class BookService(val bookRepository: BookRepository) {
     fun editBookDetails(isbn: String, book: Book): Book? {
         return bookRepository.findByIsbn(isbn)
             ?.let {
-                val test = Book(it.isbn, it.title, it.author, it.price)
-                return bookRepository.save(test)
+                val upDatedBook = Book(it.isbn, book.title, book.author, book.price)
+                return bookRepository.save(upDatedBook)
             }
     }
 }
