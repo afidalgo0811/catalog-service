@@ -17,8 +17,8 @@ class BookService(val bookRepository: BookRepository) {
         }
         return bookRepository.save(book)
     }
-    fun removeBook(book: Book) {
-        bookRepository.deleteByIsbn(book.isbn)
+    fun removeBookFromCatalog(isbn: String) {
+        bookRepository.deleteByIsbn(isbn)
     }
     fun editBookDetails(isbn: String, book: Book): Book? {
         return bookRepository.findByIsbn(isbn)
