@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository
 class InMemoryBookRepository : BookRepository {
 
   val books: MutableMap<String, Book> = ConcurrentHashMap()
+
   override fun findAll(): Iterable<Book> {
     return books.values
   }
