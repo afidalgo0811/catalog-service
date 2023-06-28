@@ -2,6 +2,7 @@ package com.afidalgo.catalogservice.web
 
 import com.afidalgo.catalogservice.domain.Book
 import com.afidalgo.catalogservice.domain.BookService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -17,30 +18,35 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("books")
 class BookController(val bookService: BookService) {
 
-    @GetMapping
-    fun get(): Iterable<Book> {
-        return bookService.viewBookList()
-    }
+  @GetMapping
+  fun get(): Iterable<Book> {
+    return bookService.viewBookList()
+  }
 
-    @GetMapping("{isbn}")
-    fun getByIsbn(@PathVariable isbn: String): Book {
-        return bookService.viewBookDetails(isbn)
-    }
+  @GetMapping("{isbn}")
+  fun getByIsbn(@PathVariable isbn: String): Book {
+    return bookService.viewBookDetails(isbn)
+  }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    fun post(@RequestBody book: Book): Book? {
-        return bookService.addBookToCatalog(book)
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  fun post(
+      @Valid @RequestBody book: Book,
+  ): Book? {
+    return bookService.addBookToCatalog(book)
+  }
 
-    @DeleteMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable isbn: String) {
-        bookService.removeBookFromCatalog(isbn)
-    }
+  @DeleteMapping
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  fun delete(@PathVariable isbn: String) {
+    bookService.removeBookFromCatalog(isbn)
+  }
 
-    @PutMapping("{isbn}")
-    fun put(@PathVariable isbn: String, @RequestBody book: Book): Book? {
-        return bookService.editBookDetails(isbn, book)
-    }
+  @PutMapping("{isbn}")
+  fun put(
+      @PathVariable isbn: String,
+      @Valid @RequestBody book: Book,
+  ): Book? {
+    return bookService.editBookDetails(isbn, book)
+  }
 }
