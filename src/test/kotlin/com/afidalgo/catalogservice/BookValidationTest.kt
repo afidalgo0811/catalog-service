@@ -14,16 +14,17 @@ import org.junit.jupiter.api.TestInstance
 class BookValidationTest {
 
   private lateinit var validator: Validator
-  private var messageList: List<String> = listOf()
+  private var messageList: List<String> =
+      listOf(
+          "The ISBN format must be valid.",
+          "The book title must be defined.",
+          "The book author must be defined.",
+          "The book price must be greater than zero.")
 
   @BeforeAll
   fun setUp() {
     val validatorFactory: ValidatorFactory = Validation.buildDefaultValidatorFactory()
     validator = validatorFactory.validator
-    messageList = messageList + "The ISBN format must be valid."
-    messageList = messageList + "The book title must be defined."
-    messageList = messageList + "The book author must be defined."
-    messageList = messageList + "The book price must be greater than zero."
   }
 
   @Test

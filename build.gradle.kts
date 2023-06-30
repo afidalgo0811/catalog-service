@@ -21,6 +21,8 @@ dependencies {
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
+  // https://mvnrepository.com/artifact/org.yaml/snakeyaml
+  implementation("org.yaml:snakeyaml:2.0")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 }
