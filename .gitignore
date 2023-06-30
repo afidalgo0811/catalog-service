@@ -15,7 +15,7 @@ out/
 /intellij
 workspace.xml
 *.versionsBackup
-/idea
+.idea
 /jps-plugin/testData/kannotator
 /js/js.translator/testData/out/
 /js/js.translator/testData/out-min/

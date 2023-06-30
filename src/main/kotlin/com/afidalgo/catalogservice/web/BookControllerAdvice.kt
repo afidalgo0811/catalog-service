@@ -3,6 +3,7 @@ package com.afidalgo.catalogservice.web
 import com.afidalgo.catalogservice.domain.BookAlreadyExistsException
 import com.afidalgo.catalogservice.domain.BookNotFoundException
 import org.springframework.http.HttpStatus
+import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -26,9 +27,10 @@ class BookControllerAdvice {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   fun handleValidationException(ex: MethodArgumentNotValidException): MutableMap<String, String> {
     val errors: MutableMap<String, String> = mutableMapOf()
-    ex.bindingResult.allErrors.forEach { error ->
-      val fieldName = error.objectName
-      val errorMessage = error.defaultMessage!!
+    ex.bindingResult.allErrors.forEach {
+      it as FieldError
+      val fieldName = it.field
+      val errorMessage = it.defaultMessage!!
       errors[fieldName] = errorMessage
     }
     return errors
