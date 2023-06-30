@@ -2,7 +2,7 @@ name: Commit Stage
 on: push
 
 jobs:
-  build:
+  Build:
     name: Build
     runs-on: ubuntu-22.04
     steps:
@@ -21,6 +21,7 @@ jobs:
   Test:
     name: Test
     runs-on: ubuntu-22.04
+    needs: Build
     permissions:
       contents: read
       security-events: write
