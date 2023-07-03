@@ -6,6 +6,7 @@ plugins {
   kotlin("jvm") version "1.8.21"
   kotlin("plugin.spring") version "1.8.21"
   id("com.diffplug.spotless") version "6.19.0"
+  kotlin("kapt") version "1.8.0"
 }
 
 group = "com.afidalgo"
@@ -16,6 +17,8 @@ java { sourceCompatibility = JavaVersion.VERSION_17 }
 
 repositories { mavenCentral() }
 
+extra["springCloudVersion"] = "2022.0.3"
+
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -25,6 +28,10 @@ dependencies {
   implementation("org.yaml:snakeyaml:2.0")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-starter-webflux")
+  kapt("org.springframework.boot:spring-boot-configuration-processor")
+  implementation("org.springframework.cloud:spring-cloud-starter-config")
+  implementation("org.springframework.retry:spring-retry")
+  implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 tasks.withType<KotlinCompile> {
@@ -44,5 +51,14 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
   kotlinGradle {
     target("*.gradle.kts")
     ktfmt()
+  }
+}
+
+tasks.bootRun.configure { systemProperty("spring.profiles.active", "test-data") }
+
+dependencyManagement {
+  imports {
+    mavenBom(
+        "org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
   }
 }
