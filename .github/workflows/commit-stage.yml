@@ -48,7 +48,7 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
-      - name: Build, unit test and integration Test
+      - name: Build, Unit test and Integration test
         run: |
           chmod +x gradlew
           ./gradlew build
