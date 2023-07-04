@@ -1,5 +1,5 @@
 name: Commit Stage
-on: push
+on: [pull_request]
 
 jobs:
   Build:
