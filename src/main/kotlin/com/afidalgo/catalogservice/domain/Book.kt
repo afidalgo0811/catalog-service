@@ -4,25 +4,37 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Positive
+import java.time.Instant
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.annotation.Version
+import org.springframework.data.relational.core.mapping.Column
+import org.springframework.data.relational.core.mapping.Table
 
+@Table("book")
 data class Book(
-    @Id val id: Long?,
+    @Column("id") @Id val id: Long?,
     @field:NotBlank(message = "The book ISBN must be defined.")
     @field:Pattern(regexp = "^([0-9]{10}|[0-9]{13})$", message = "The ISBN format must be valid.")
+    @Column("isbn")
     val isbn: String,
-    @field:NotBlank(message = "The book title must be defined.") val title: String,
-    @field:NotBlank(message = "The book author must be defined.") val author: String,
+    @field:NotBlank(message = "The book title must be defined.") @Column("title") val title: String,
+    @field:NotBlank(message = "The book author must be defined.")
+    @Column("author")
+    val author: String,
     @field:NotNull(message = "The book price must be defined.")
     @field:Positive(message = "The book price must be greater than zero.")
+    @Column("price")
     val price: Double,
-    @Version val version: Int
+    @CreatedDate val createdDate: Instant?,
+    @LastModifiedDate val lastModifiedDate: Instant?,
+    @Column("version") @Version val version: Int
 ) {
   constructor(
       isbn: String,
       title: String,
       author: String,
       price: Double,
-  ) : this(null, isbn, title, author, price, 0) {}
+  ) : this(null, isbn, title, author, price, null, null, 0) {}
 }

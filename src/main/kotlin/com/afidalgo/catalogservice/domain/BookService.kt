@@ -26,7 +26,16 @@ class BookService(val bookRepository: BookRepository) {
 
   fun editBookDetails(isbn: String, book: Book): Book? {
     return bookRepository.findByIsbn(isbn)?.let {
-      val upDatedBook = Book(it.id, it.isbn, book.title, book.author, book.price, it.version)
+      val upDatedBook =
+          Book(
+              it.id,
+              it.isbn,
+              book.title,
+              book.author,
+              book.price,
+              it.createdDate,
+              it.lastModifiedDate,
+              it.version)
       return bookRepository.save(upDatedBook)
     }
   }
