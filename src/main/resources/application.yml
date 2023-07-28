@@ -36,7 +36,8 @@ spring:
         multiplier: 1.1
   sql:
     init:
-      mode: always
+      mode: ALWAYS
+
 
 management:
   endpoints:
