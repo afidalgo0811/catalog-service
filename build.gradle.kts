@@ -38,7 +38,8 @@ dependencies {
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-starter-webflux")
   testImplementation("org.testcontainers:junit-jupiter")
-  testImplementation("io.kotest:kotest-assertions-core-jvm:4.3.1")
+  testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
+  implementation("org.flywaydb:flyway-core")
 }
 
 tasks.withType<KotlinCompile> {

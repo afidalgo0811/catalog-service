@@ -1,5 +1,5 @@
 
-create table if not exists book (
+create table book (
 id bigserial PRIMARY KEY NOT NULL,
 author varchar(255) NOT NULL,
 isbn varchar(255) UNIQUE NOT NULL,

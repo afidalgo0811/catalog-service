@@ -34,18 +34,11 @@ spring:
         initial-interval: 1000
         max-interval: 2000
         multiplier: 1.1
-  sql:
-    init:
-      mode: ALWAYS
-
-
 management:
   endpoints:
     web:
       exposure:
         include: refresh
-
-
 
 polar:
   greetings: Welcome to the local book catalog!
