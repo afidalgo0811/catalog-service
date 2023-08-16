@@ -15,6 +15,7 @@ import org.springframework.data.relational.core.mapping.Table
 @Table("book")
 data class Book(
     @Column("id") @Id val id: Long?,
+    @Column("publisher") val publisher: String?,
     @field:NotBlank(message = "The book ISBN must be defined.")
     @field:Pattern(regexp = "^([0-9]{10}|[0-9]{13})$", message = "The ISBN format must be valid.")
     @Column("isbn")
@@ -36,5 +37,11 @@ data class Book(
       title: String,
       author: String,
       price: Double,
-  ) : this(null, isbn, title, author, price, null, null, 0) {}
+      publisher: String,
+  ) : this(null, publisher, isbn, title, author, price, null, null, 0)
+
+  companion object BookFactory {
+    fun create(isbn: String, title: String, author: String, price: Double, publisher: String) =
+        Book(null, publisher, isbn, title, author, price, null, null, 0)
+  }
 }

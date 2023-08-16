@@ -14,7 +14,7 @@ class CatalogServiceApplicationTests(@Autowired val webTestClient: WebTestClient
 
   @Test
   fun whenPostRequestThenBookCreated() {
-    val expectedBook = Book("1231231231", "Title", "Author", 9.90)
+    val expectedBook = Book("1231231231", "Title", "Author", 9.90, "publisher")
     webTestClient
         .post()
         .uri("/books")

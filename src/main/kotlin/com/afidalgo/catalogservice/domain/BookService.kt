@@ -29,6 +29,7 @@ class BookService(val bookRepository: BookRepository) {
       val upDatedBook =
           Book(
               it.id,
+              book.publisher,
               it.isbn,
               book.title,
               book.author,

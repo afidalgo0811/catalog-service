@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 plugins {
   id("org.springframework.boot") version "3.1.0"
@@ -63,6 +64,18 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
 }
 
 tasks.bootRun.configure { systemProperty("spring.profiles.active", "test-data") }
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+  imageName.set(project.name)
+  environment.set(environment.get() + mapOf("BP_JVM_VERSION" to "17"))
+  docker {
+    publishRegistry {
+      username.set(project.findProperty("registryUsername").toString())
+      password.set(project.findProperty("registryToken").toString())
+      url.set(project.findProperty("registryUrl").toString())
+    }
+  }
+}
 
 dependencyManagement {
   imports {

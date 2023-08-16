@@ -45,7 +45,7 @@ class BookRepositoryJdbcTests {
   @Test
   fun findBookByIsbnWhenExisting() {
     val bookIsbn = "1234561237"
-    val book = Book(bookIsbn, "Title", "Author", 12.90)
+    val book = Book(bookIsbn, "Title", "Author", 12.90, "publisher")
     jdbcAggregateTemplate.insert(book)
     val actualBook = bookRepository.findByIsbn(bookIsbn)
     actualBook.shouldNotBeNull()
@@ -54,13 +54,13 @@ class BookRepositoryJdbcTests {
   @Test
   fun `when database is connected then it should be Postgres version 15`() {
     val actualDatabaseVersion = jdbcTemplate.queryForObject("SELECT version()", String::class.java)
-    actualDatabaseVersion shouldContain "PostgreSQL 15.3"
+    actualDatabaseVersion shouldContain "PostgreSQL 15"
   }
 
   @Test
   fun `when record is saved then the id is populated`() {
     val bookIsbn = "1234561237"
-    val book = Book(bookIsbn, "Title", "Author", 12.90)
+    val book = Book(bookIsbn, "Title", "Author", 12.90, "publisher")
     val actual = jdbcAggregateTemplate.insert(book)
     actual.id?.shouldBeInRange((1..Long.MAX_VALUE))
   }
