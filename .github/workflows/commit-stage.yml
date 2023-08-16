@@ -24,7 +24,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-22.04
-    needs: Build
+    needs: build
     permissions:
       contents: read
       security-events: write
