@@ -65,7 +65,7 @@ jobs:
           kubectl: 1.24.3
           kubeval: 0.16.1
           command: |
-            kubeval --strict -d /github/workspace/k8s
+            kubeval --strict -d /home/runner/work/catalog-service/catalog-service/k8s
 
   package:
     name: Package and Publish
