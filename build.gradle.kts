@@ -31,7 +31,7 @@ dependencies {
   // https://mvnrepository.com/artifact/org.yaml/snakeyaml
   implementation("org.yaml:snakeyaml:2.0")
   kapt("org.springframework.boot:spring-boot-configuration-processor")
-  // implementation("org.springframework.cloud:spring-cloud-starter-config")
+  implementation("org.springframework.cloud:spring-cloud-starter-config")
   implementation("org.springframework.retry:spring-retry")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
