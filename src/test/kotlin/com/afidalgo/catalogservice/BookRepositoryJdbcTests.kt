@@ -28,7 +28,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 class BookRepositoryJdbcTests {
   @Autowired lateinit var bookRepository: BookRepository
   @Autowired lateinit var jdbcAggregateTemplate: JdbcAggregateTemplate
-  @Autowired private lateinit var jdbcTemplate: JdbcTemplate
+  @Autowired private var jdbcTemplate: JdbcTemplate = JdbcTemplate()
 
   companion object {
     @Container private val postgreSQLContainer = PostgreSQLContainer<Nothing>("postgres:latest")
