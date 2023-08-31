@@ -1,3 +1,4 @@
+import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
@@ -30,7 +31,7 @@ dependencies {
   // https://mvnrepository.com/artifact/org.yaml/snakeyaml
   implementation("org.yaml:snakeyaml:2.0")
   kapt("org.springframework.boot:spring-boot-configuration-processor")
-  implementation("org.springframework.cloud:spring-cloud-starter-config")
+  // implementation("org.springframework.cloud:spring-cloud-starter-config")
   implementation("org.springframework.retry:spring-retry")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
@@ -52,7 +53,7 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> { useJUnitPlatform() }
 
-configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+configure<SpotlessExtension> {
   kotlin {
     // by default the target is every '.kt' and '.kts` file in the java sourcesets
     ktfmt() // has its own section below
