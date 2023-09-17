@@ -54,7 +54,7 @@ class BookRepositoryJdbcTests {
   @Test
   fun `when database is connected then it should be Postgres version 15`() {
     val actualDatabaseVersion = jdbcTemplate.queryForObject("SELECT version()", String::class.java)
-    actualDatabaseVersion shouldContain "PostgreSQL 15"
+    actualDatabaseVersion shouldContain "PostgreSQL 16"
   }
 
   @Test
