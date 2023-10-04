@@ -16,7 +16,7 @@ spring:
   datasource:
     username: user
     password: password
-    url: jdbc:postgresql://hgy/polardb_catalog
+    url: jdbc:postgresql://localhost:5432/polardb_catalog
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
@@ -28,10 +28,10 @@ spring:
     import: "optional:configserver:"
   cloud:
     config:
-      uri: ${SPRING_CONFIG_URI:http://localhost:8888}
+      uri: "http://localhost:8888"
       request-connect-timeout: 5000
       request-read-timeout: 5000
-      fail-fast: true
+      fail-fast: false # In production, set to true
       retry:
         max-attempts: 6
         initial-interval: 1000
