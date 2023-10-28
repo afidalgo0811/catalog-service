@@ -7,23 +7,18 @@ server:
     threads:
       max: 50
       min-spare: 5
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
 spring:
   datasource:
     username: user
     password: password
-    url: jdbc:postgresql://hgy/polardb_catalog
+    url: jdbc:postgresql://localhost:5432/polardb_catalog
     hikari:
       connection-timeout: 2000
       maximum-pool-size: 5
   application:
     name: catalog-service
-    lifecycle:
-      timeout-per-shutdown-phase: 15s
+  lifecycle:
+    timeout-per-shutdown-phase: 15s
   config:
     import: "optional:configserver:"
   cloud:
@@ -31,7 +26,7 @@ spring:
       uri: ${SPRING_CONFIG_URI:http://localhost:8888}
       request-connect-timeout: 5000
       request-read-timeout: 5000
-      fail-fast: true
+      fail-fast: false
       retry:
         max-attempts: 6
         initial-interval: 1000
@@ -45,3 +40,6 @@ management:
 
 polar:
   greetings: Welcome to the local book catalog!
+logging:
+  level:
+    sql: debug
