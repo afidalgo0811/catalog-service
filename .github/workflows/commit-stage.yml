@@ -3,7 +3,10 @@ on: [push]
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: afidalgo0811/catalog-service
+  SPACE_USERNAME: ${{ secrets.SPACE_USERNAME }}
+  SPACE_PASS: ${{ secrets.SPACE_PASSWORD }}
   VERSION: latest
+  
 jobs:
   build:
     name: Build
