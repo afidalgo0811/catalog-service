@@ -17,7 +17,25 @@ version = "0.0.1-SNAPSHOT"
 
 java { sourceCompatibility = JavaVersion.VERSION_17 }
 
-repositories { mavenCentral() }
+val spaceUsername: String? by project
+val spacePassword: String? by project
+val userName: String? = System.getenv("SPACE_USERNAME")
+val passWord: String? = System.getenv("SPACE_PASSWORD")
+val usr = userName ?: spaceUsername // checks env first
+val psw = passWord ?: spacePassword // checks env first
+val urlArtifactRepository = ext["jetbrains.url"].toString()
+val sharedLibraryVersion = ext["shared.library.version"].toString()
+
+repositories {
+  mavenCentral()
+  maven {
+    url = uri(urlArtifactRepository)
+    credentials {
+      username = usr
+      password = psw
+    }
+  }
+}
 
 extra["springCloudVersion"] = "2022.0.3"
 
@@ -42,6 +60,7 @@ dependencies {
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
   implementation("org.flywaydb:flyway-core")
+  implementation("com.afidalgo:shared-library:$sharedLibraryVersion")
 }
 
 tasks.withType<KotlinCompile> {
