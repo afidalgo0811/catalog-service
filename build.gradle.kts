@@ -23,6 +23,8 @@ extra["springCloudVersion"] = "2022.0.3"
 
 extra["testcontainersVersion"] = "1.18.0"
 
+extra["testKeycloakVersion"] = "2.3.0"
+
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -42,6 +44,10 @@ dependencies {
   testImplementation("org.testcontainers:junit-jupiter")
   testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")
   implementation("org.flywaydb:flyway-core")
+  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  testImplementation("org.springframework.security:spring-security-test")
+  testImplementation(
+      "com.github.dasniko:testcontainers-keycloak:${property("testKeycloakVersion")}")
 }
 
 tasks.withType<KotlinCompile> {
