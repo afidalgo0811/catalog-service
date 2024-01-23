@@ -40,7 +40,7 @@ data class Book(
       publisher: String,
   ) : this(null, publisher, isbn, title, author, price, null, null, 0)
 
-  companion object BookFactory {
+  companion object {
     fun create(isbn: String, title: String, author: String, price: Double, publisher: String) =
         Book(null, publisher, isbn, title, author, price, null, null, 0)
   }

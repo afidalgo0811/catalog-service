@@ -12,7 +12,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/reamls/PolarBookshop
+          issuer-uri: http://localhost:8080/realms/PolarBookshop
 
   datasource:
     username: user
