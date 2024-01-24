@@ -5,6 +5,7 @@ import com.afidalgo.catalogservice.domain.Book
 import com.afidalgo.catalogservice.domain.BookRepository
 import io.kotest.matchers.longs.shouldBeInRange
 import io.kotest.matchers.nulls.shouldNotBeNull
+import io.kotest.matchers.string.shouldBeEqualIgnoringCase
 import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.context.annotation.Import
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -63,5 +65,25 @@ class BookRepositoryJdbcTests {
     val book = Book(bookIsbn, "Title", "Author", 12.90, "publisher")
     val actual = jdbcAggregateTemplate.insert(book)
     actual.id?.shouldBeInRange((1..Long.MAX_VALUE))
+  }
+
+  @Test
+  fun `when create book not authenticated then no audit metadata`() {
+    val bookIsbn = "1234561237"
+    val book = Book(bookIsbn, "Title", "Author", 12.90, "publisher")
+    val createdBook = bookRepository.save(book)
+    createdBook.createdBy.isNullOrBlank()
+    createdBook.lastModifiedBy.isNullOrBlank()
+  }
+
+  @Test
+  @WithMockUser("John")
+  fun `when create book authenticated then audit metadata`() {
+    val bookIsbn = "1234561237"
+    val book = Book(bookIsbn, "Title", "Author", 12.90, "publisher")
+    val createdBook = bookRepository.save(book)
+
+    createdBook.createdBy shouldBeEqualIgnoringCase "john"
+    createdBook.lastModifiedBy shouldBeEqualIgnoringCase "john"
   }
 }

@@ -36,7 +36,7 @@ class BookController(val bookService: BookService) {
     return bookService.addBookToCatalog(book)
   }
 
-  @DeleteMapping
+  @DeleteMapping("{isbn}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   fun delete(@PathVariable isbn: String) {
     bookService.removeBookFromCatalog(isbn)
