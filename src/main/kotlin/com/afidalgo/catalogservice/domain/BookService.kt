@@ -36,6 +36,8 @@ class BookService(val bookRepository: BookRepository) {
               book.price,
               it.createdDate,
               it.lastModifiedDate,
+              it.createdBy,
+              it.lastModifiedBy,
               it.version)
       return bookRepository.save(upDatedBook)
     }
