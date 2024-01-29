@@ -3,6 +3,7 @@ package com.afidalgo.catalogservice.web
 import com.afidalgo.catalogservice.domain.Book
 import com.afidalgo.catalogservice.domain.BookService
 import jakarta.validation.Valid
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,13 +19,19 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("books")
 class BookController(val bookService: BookService) {
 
+  companion object {
+    private val logger = LoggerFactory.getLogger(this::class.java)
+  }
+
   @GetMapping
   fun get(): Iterable<Book> {
+    logger.info("Fetching the list of books in the catalog")
     return bookService.viewBookList()
   }
 
   @GetMapping("{isbn}")
   fun getByIsbn(@PathVariable isbn: String): Book {
+    logger.info("Fetching the book with ISBN {} from the catalog", isbn)
     return bookService.viewBookDetails(isbn)
   }
 
@@ -33,12 +40,14 @@ class BookController(val bookService: BookService) {
   fun post(
       @Valid @RequestBody book: Book,
   ): Book? {
+    logger.info("Adding a new book to the catalog with ISBN {}", book.isbn)
     return bookService.addBookToCatalog(book)
   }
 
   @DeleteMapping("{isbn}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   fun delete(@PathVariable isbn: String) {
+    logger.info("Deleting book with ISBN {}", isbn)
     bookService.removeBookFromCatalog(isbn)
   }
 
@@ -47,6 +56,7 @@ class BookController(val bookService: BookService) {
       @PathVariable isbn: String,
       @Valid @RequestBody book: Book,
   ): Book? {
+    logger.info("Updating book with ISBN {}", isbn)
     return bookService.editBookDetails(isbn, book)
   }
 }

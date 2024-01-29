@@ -37,11 +37,12 @@ repositories {
   }
 }
 
-extra["springCloudVersion"] = "2022.0.3"
-
-extra["testcontainersVersion"] = "1.18.0"
-
-extra["testKeycloakVersion"] = "2.3.0"
+ext {
+  set("otelVersion", "1.17.0")
+  set("springCloudVersion", "2022.0.3")
+  set("testcontainersVersion", "1.18.0")
+  set("testKeycloakVersion", "2.3.0")
+}
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
@@ -57,6 +58,8 @@ dependencies {
   implementation("org.flywaydb:flyway-core")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   runtimeOnly("org.postgresql:postgresql")
+  runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+  runtimeOnly("io.opentelemetry.javaagent:opentelemetry-javaagent:${property("otelVersion")}")
   kapt("org.springframework.boot:spring-boot-configuration-processor")
   testImplementation("org.testcontainers:postgresql")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
