@@ -114,3 +114,5 @@ dependencyManagement {
     mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
   }
 }
+
+springBoot { buildInfo() }
