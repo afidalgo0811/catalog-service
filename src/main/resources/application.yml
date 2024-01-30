@@ -54,8 +54,6 @@ management:
           - loggers
           - mappings
           - env
-          - bindings
-          - functions
   info:
     env:
       enabled: true
